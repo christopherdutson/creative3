@@ -9,6 +9,8 @@ export default {
       currentVerse: "",
       currentBook: "",
       currentChapter: "",
+      total: 0,
+      correct: 0,
       guesses: 3,
       message: "",
       showNext: false
@@ -27,10 +29,8 @@ export default {
       var verse = this.currentVerse.reference;
       var lastWord = verse.lastIndexOf(" ");
       this.currentBook = verse.substring(0, lastWord);
-      console.log(this.currentBook);
       var colon = verse.lastIndexOf(":");
       this.currentChapter = verse.substring(lastWord + 1, colon);
-      console.log(this.currentChapter);
       this.guesses = 3;
       this.onBook = true;
     },
@@ -54,6 +54,7 @@ export default {
       var correctChapter = parseInt(this.currentChapter);
       if(chapter === correctChapter) {
         this.message = "Correct Chapter!";
+        ++this.correct;
         this.next();
       }
       else {
@@ -69,10 +70,9 @@ export default {
           this.message = "Lower than " + chapter;
         }
       }
-      console.log(chapter);
-      console.log(this.currentChapter);
     },
     next() {
+      ++this.total;
       this.showNext = true;
       var history = this.enterName;
       if(this.guesses === 0) {
@@ -126,6 +126,7 @@ export default {
 
     <template v-if="showNext">
       <h3 class="center">Answer: {{currentVerse.reference}}</h3>
+      <h3 class="center">Score: {{correct}}/{{total}}</h3>
       <div class="nextWrapper">
         <button type="submit" class="pure-button pure-button-primary next" v-on:click="start">Next</button>
       </div>
