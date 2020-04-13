@@ -36,7 +36,7 @@ export default {
     },
     checkBook(book) {
       if(book === this.currentBook) {
-        this.message = "Correct Book!";
+        this.message = "Correct: " + book;
         this.onBook = false;
       }
       else {
@@ -46,14 +46,14 @@ export default {
           this.next();
         }
         else {
-          this.message = "Try Again!";
+          this.message = "Not " + book;
         }
       }
     },
     checkChapter(chapter) {
       var correctChapter = parseInt(this.currentChapter);
       if(chapter === correctChapter) {
-        this.message = "Correct Chapter!";
+        this.message = "Correct!";
         ++this.correct;
         this.next();
       }
@@ -102,7 +102,7 @@ export default {
   <div v-else>
     <div class="center">
       <h2>Player: {{enterName}}</h2>
-      <h3>You have {{guesses}} guesses left</h3>
+      <h3>You have {{guesses}} strikes left</h3>
       <h3>{{message}}</h3>
     </div>
 
